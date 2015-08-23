@@ -1,0 +1,5 @@
+# Example Stanza
+[monitor:///var/log/suricata/eve.json]
+sourcetype = suricata
+index = security
+host = suricata-ids.domain.com
