@@ -1,4 +1,4 @@
-# Splunk_TA_Suricata
+# TA-Suricata
 This TA will transform the Suricata eve.json fields to match Splunk's CIM
 
 *You need to be output the log files as eve.json and not use Unified2 otherwise none of the parsing rules will work properly nor the lookups & field aliases.*
@@ -14,3 +14,7 @@ index = $indexname$
 
 More information about Suricata can be found:
 https://redmine.openinfosecfoundation.org/projects/suricata/wiki
+
+#Legal
+* *Splunk* is a registered trademark of Splunk, Inc.
+* *SURICATA* is a trademark of Open Information Security Foundation Inc.
