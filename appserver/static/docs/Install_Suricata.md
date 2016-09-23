@@ -53,10 +53,40 @@ sudo cp suricata.yaml /etc/suricata
 
 ### Run Suricata
 ```
-sudo suricata -c /etc/suricata/suricata.yaml -i wlan0
+sudo suricata -c /etc/suricata/suricata.yaml -i eth0
 ```
 
 ### Run Suricata as a daemon
 ```
-sudo suricata -c -D /etc/suricata/suricata.yaml -i wlan0
+sudo suricata -c /etc/suricata/suricata.yaml -i eth0 -D
+```
+
+### Install OinkMaster
+```
+sudo apt-get -y install oinkmaster
+```
+
+### Create Directory & Configfile for OinkMaster
+```
+mkdir /etc/oinkmaster
+touch /etc/oinkmaster/oinkmaster.conf
+```
+
+### Configfile for OinkMaster
+```
+# Suricata Emerging Threats
+url = http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
+```
+
+### Run OinkMaster to update Suricata Rules & Restart Suricata
+```
+oinkmaster -C /etc/oinkmaster/oinkmaster.conf -o /etc/suricata/rules
+kill -USR2 $(ps aux | grep '[s]uricata' | awk '{print $2}')
+```
+
+### Edit Crontab to update daily:
+```
+crontab -e 
+
+55 5 * * * root ( oinkmaster -C /etc/oinkmaster/oinkmaster.conf -o /etc/suricata/rules; sleep 5; kill -USR2 $(ps aux | grep '[s]uricata' | awk '{print $2}') )
 ```
