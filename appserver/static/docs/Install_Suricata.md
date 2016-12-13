@@ -16,7 +16,7 @@ sudo apt-get -y install libnetfilter-queue-dev libnetfilter-queue1 libnfnetlink-
 
 ### Download Suricata 3.1 (substitue version)
 ```
-VER=3.1
+VER=3.1.1
 wget "http://www.openinfosecfoundation.org/download/suricata-$VER.tar.gz" 
 tar -xvzf "suricata-$VER.tar.gz" 
 cd "suricata-$VER"
