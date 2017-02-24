@@ -1,0 +1,29 @@
+#cloud-config
+package_update: true
+apt_sources:
+  - source: "ppa:ansible/ansible"
+  - source: "ppa:oisf/suricata-stable"
+
+packages:
+  - fail2ban
+  - letsencrypt
+  - suricata
+  - oinkmaster
+  - nginx
+
+
+# system stuff
+manage_etc_hosts: localhost
+
+write_files:
+  - path: /etc/oinkmaster/oinkmaster.conf
+    permissions: 0644
+    owner: root
+    content: |
+        # Suricata Emerging Threats
+        url = http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz
+
+runcmd:
+   - oinkmaster -C /etc/oinkmaster/oinkmaster.conf -o /etc/suricata/rules
+   - service suricata stop
+   - suricata -c /etc/suricata/suricata.yaml -v --af-packet -D
